@@ -1,7 +1,8 @@
 import Head from 'next/head'
-import { Fotter } from '../components/Fotter'
-import{ Links } from '../components/Links'
 import styles from '../styles/Home.module.css'
+import { Fotter } from '../components/Fotter'
+import { Links } from '../components/Links'
+
 
 export default function Home() {
   return (
@@ -14,17 +15,17 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a>Index Page!!</a>
+          Welcome to <a href="https://nextjs.org">About Page!!</a>
         </h1>
 
         <p className={styles.description}>
           こんにちは started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
-      <Links/>
+        <Links/>
       </main>
 
-      <Fotter/>
+     <Fotter/>
     </div>
   )
 }
