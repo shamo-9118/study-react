@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Fotter } from "../components/Fotter";
+import { Fotter } from "../components/Footer";
 import { Main } from "../components/Main";
 import styles from "../styles/Home.module.css";
 

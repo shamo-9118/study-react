@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { Fotter } from "../components/Fotter";
+import { Fotter } from "../components/Footer";
 import { Main } from "../components/Main";
 
 export default function Home() {
