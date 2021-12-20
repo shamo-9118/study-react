@@ -2,9 +2,19 @@ import Head from "next/head";
 import { Fotter } from "../components/Footer/Footer";
 import { Main } from "../components/Main/Main";
 import { Header } from "../components/Header/Header";
+import { useCallback } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const foo = 1;
+  const handleClick = useCallback((e) => {
+    console.log(e.target.href);
+    e.preventDefault();
+    alert(foo);
+  }, []);
+  /* useCallbackを使うとページの再レンダリングの時の再生成を防ぐことができる */
+  /* この処理はHomeの外に記述してもよい */
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,9 +23,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header></Header>
-      <Main page="index"/>
+      <a href="/about" onClick={handleClick}>
+        ボタン
+      </a>
+      <Main page="index" />
 
       <Fotter />
     </div>
   );
 }
+
+/* 処理とコンポーネントは分ける */
+/* メソッドを中に書くとページの再レンダリングの時に中で書いていると再レンダリングされてしま */
