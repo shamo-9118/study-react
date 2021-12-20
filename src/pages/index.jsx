@@ -2,22 +2,29 @@ import Head from "next/head";
 import { Fotter } from "../components/Footer/Footer";
 import { Main } from "../components/Main/Main";
 import { Header } from "../components/Header/Header";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const [count, setCount] = useState(1); //useStateの命名はなんでもいい
 
-  const handleClick = (e) => {
-    setCount((count) => count + 1); //アロー関数で書く、直接的な書き方をしてしまうとよくない。前回の値が反映されない。
-  };
+  const handleClick = useCallback((e) => {
+    console.log(count);
+    if (count < 5) {
+      setCount((count) => count + 1);
+    }
+  }, [count]);
+  //アロー関数で書く、直接的な書き方をしてしまうとよくない。前回の値が反映されない。
+  //useCaalback関数の[]の中に何も指定していないと再生成されることはない。
 
   useEffect(() => {
     document.body.style.backgroundColor = "lightblue";
     return () => {
       document.body.style.backgroundColor = "";
+      //クリーンアップファンクション（アンマウント時の処理）アンマウント時の処理も走る
+      //処理の順番はアンマウント→マウントの順番で呼ばれる
     };
-  }, []);
+  }, []); //[]のから配列に管理したい変数を入れることで実行のタイミングが管理できる。配列なので複数の変数を設定可能
 
   return (
     <div className={styles.container}>
@@ -44,3 +51,5 @@ export default function Home() {
 ２タイミングで起こしたいイベント　オフラインオンライン */
 
 /*  コンポーネントのライフサイクル*/
+//再レンダリングの取捨選択が大切アプリケーションの規模が大きくなればなるほどパーフォーマンスが重要になる。
+//
