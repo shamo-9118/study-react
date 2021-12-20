@@ -8,7 +8,7 @@ export function Main(props) {
         <Headline page={props.page}>
           <code className={classes.code}>pages/{props.page}.js</code>
         </Headline>
-        <Links />
+        <Links/>
       </main>
   );
 }

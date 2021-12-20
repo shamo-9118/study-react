@@ -2,7 +2,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { Fotter } from "../components/Footer/Footer";
 import { Main } from "../components/Main/Main";
-import {Header} from "../components/Header/Header";
+import { Header } from "../components/Header/Header";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header></Header>
-      <Main page="about"/>
+      <Main page="about" />
 
       <Fotter />
     </div>
