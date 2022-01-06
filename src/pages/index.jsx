@@ -7,15 +7,30 @@ import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const [count, setCount] = useState(1); //useStateの命名はなんでもいい
+  const [text, setText] = useState("");
+  const [isShow, setIsShow] = useState(true);
 
-  const handleClick = useCallback((e) => {
-    console.log(count);
-    if (count < 5) {
-      setCount((count) => count + 1);
-    }
-  }, [count]);
+  const handleClick = useCallback(
+    (e) => {
+      if (count < 5) {
+        setCount((count) => count + 1);
+      }
+    },
+    [count]
+    //usecallbackの第二引数は副作用をコントロールしたい時に使う。第二引数の変化したタイミングで再度再生成される。usecallbackは再生成されない。
+    //配列に変数を指定して管理する理由は、パフォーマンスを向上させるため、更新させるものと更新させないものは管理して分けることがパフォーマンスの面で大切になる。処理は少なく簡潔に、
+  
+  );
   //アロー関数で書く、直接的な書き方をしてしまうとよくない。前回の値が反映されない。
   //useCaalback関数の[]の中に何も指定していないと再生成されることはない。
+  //usecallbackで更新を制限する。小規模の場合はあまりもとめられないけど大きい開発の時のために癖はつけておく・
+  const handleChange = useCallback((e) => {
+    setText(e.target.value);
+  }, []);
+  const handleDisplay = useCallback(()=>{
+    setIsShow((isShow) => !isShow); 
+    //！の後がfallseyな値ならtrueを返し turesyならfalseを返す
+  },[])
 
   useEffect(() => {
     document.body.style.backgroundColor = "lightblue";
@@ -34,8 +49,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <h1>{count}</h1>
+      {isShow ? <h1>{count}</h1> : null}  
       <button onClick={handleClick}>ボタン</button>
+
+      <button
+        onClick={handleDisplay}
+      >
+        {isShow ? "非表示":"表示"}
+      </button>
+
+      <input type="text" value={text} onChange={handleChange} />
       <Main page="index" />
 
       <Fotter />
@@ -53,3 +76,6 @@ export default function Home() {
 /*  コンポーネントのライフサイクル*/
 //再レンダリングの取捨選択が大切アプリケーションの規模が大きくなればなるほどパーフォーマンスが重要になる。
 //
+
+//useStateにおける文字列＆booleanの取り扱い方
+//reactはreturn文の中でif文が使えない。だからreturnの中でif文が使いたいときは基本的に三項演算子を使う。どちらかというとjsxの機能制限
